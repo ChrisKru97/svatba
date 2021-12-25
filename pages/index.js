@@ -1,8 +1,10 @@
 import Image from "next/image"
 import Timeout from "../components/Timeout";
 import useWindowSize from '../hooks/useWindowSize'
+import {getInfo} from '../firebase/firestore-functions'
+import { marked } from "marked";
 
-const Home = ()=> {
+const Home = ({docs})=> {
   const {width, height} = useWindowSize();
   return (
     <>
@@ -20,14 +22,28 @@ const Home = ()=> {
         </span>
       <h1 className="flex-1">Karin Siwá</h1>
       </div>
-      <div className="h-screen text-3xl text-center">
-        <h1>Informace</h1>
+      <div className="text-center">
+        <h1 className="text-3xl ">Informace</h1>
+        <div className="flex flex-col flex-wrap h-screen content-evenly">
+        {docs.map(doc => <div className="max-w-md m-5 border-b border-black" key={doc.title} >
+          <Image src={doc.iconUrl} width={50} height={50} />
+          <h3 className="text-lg">{doc.title}</h3>
+          <div className="text-sm" dangerouslySetInnerHTML={{__html: doc.description}} />
+        </div>)}
       </div>
-      <div className="h-screen">
-        <h1>Kdy &amp; kde</h1>
       </div>
     </>
   )
+}
+
+export const getServerSideProps = async () => {
+  const docs = await getInfo()
+
+  return {
+    props: {
+      docs: docs.map(({description, ...item})=> ({...item, description: marked(description)})),
+    }
+  }
 }
 
 export default Home
