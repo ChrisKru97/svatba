@@ -10,8 +10,8 @@ const Timeout = () => {
         days,
       } = useTimer({ expiryTimestamp });
 
-      const h1Class = "text-6xl w-40"
-      const h2Class = "text-4xl"
+      const h1Class = "text-3xl lg:text-6xl w-40"
+      const h2Class = "text-xl lg:text-4xl"
 
     return <div className="flex flex-row justify-between">
         <h1 className={h1Class}>{days}&nbsp;<span className={h2Class}>d.</span></h1>
