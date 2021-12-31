@@ -25,7 +25,7 @@ const Home = ({ info, gifts, imageList }) => {
         <div className="flex flex-col lg:flex-row lg:flex-wrap justify-center content-evenly">
           {info.map((info, index) => <Info key={index} {...info} />)}
         </div>
-        {/* <ImageList list={imageList}/> */}
+        <ImageList list={imageList}/>
         <div className="items-center flex-col flex space-y-5 pb-5 mt-10">
           <h1 className="text-4xl underline">Dary</h1>
           <h2 className="text-l">Rezervujte kliknutím <b>+</b><br />V případě omylu nás prosím kontaktujte</h2>
