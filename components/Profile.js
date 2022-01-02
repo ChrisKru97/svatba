@@ -4,8 +4,10 @@ import useWindowSize from '../hooks/useWindowSize';
 const Profile = () => {
   const { width, height } = useWindowSize();
   const [scrolled, setScrolled] = useState(0);
+  const isPortrait = height > width;
 
   useEffect(() => {
+    if (isPortrait) return;
     const handler = () => {
       // 0 (scrolled nothing, text top)
       // 1 (scrolled in the middle, text middle)
@@ -18,7 +20,7 @@ const Profile = () => {
     return () => {
       document.removeEventListener('scroll', handler);
     };
-  }, [height, setScrolled]);
+  }, [height, setScrolled, isPortrait]);
 
   const translateY = ((scrolled - 1) * 0.95 * height) / 2;
   const translateX = Math.max(80 * (1 - scrolled), 0);
@@ -31,7 +33,9 @@ const Profile = () => {
         className="flex-1 text-right"
         style={{
           opacity,
-          transform: `translateY(${translateY}px) translateX(${-translateX}%) scale(${scale})`,
+          transform: isPortrait
+            ? undefined
+            : `translateY(${translateY}px) translateX(${-translateX}%) scale(${scale})`,
         }}>
         Christian Krutsche
       </h1>
@@ -47,7 +51,9 @@ const Profile = () => {
         className="flex-1"
         style={{
           opacity,
-          transform: `translateY(${translateY}px) translateX(${translateX}%) scale(${scale})`,
+          transform: isPortrait
+            ? undefined
+            : `translateY(${translateY}px) translateX(${translateX}%) scale(${scale})`,
         }}>
         Karin Siwá
       </h1>

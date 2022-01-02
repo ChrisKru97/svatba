@@ -15,7 +15,7 @@ const ImageList = ({ list }) => {
   );
 
   const onImageClick = useCallback(
-    (index) => () => {
+    (index) => {
       selectedImage.current = index;
       [indexAt(index - 1), indexAt(index + 1)].forEach(
         (sideIndex, sideArrIndex) => {
@@ -76,10 +76,10 @@ const ImageList = ({ list }) => {
           <img
             id={`carousel-image-${index}`}
             key={path}
-            alt={`image number ${index}`}
+            alt={`image number ${index + 1}`}
             src={`/images/random/${path}`}
             className="absolute cursor-pointer"
-            onClick={onImageClick(index)}
+            onClick={() => onImageClick(index)}
             style={{
               transition: 'transform 600ms, opacity 600ms',
               zIndex: index === 0 ? 1 : 0,
