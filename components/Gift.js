@@ -22,7 +22,7 @@ const Gift = (props) => {
       onClick={() => {
         window.location.href = url;
       }}>
-      <h2>{title}</h2>
+      <h2 className="underline text-blue-600">{title}</h2>
       {max && (
         <span>
           {reserved} / {max}
