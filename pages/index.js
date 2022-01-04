@@ -10,8 +10,7 @@ import Profile from '../components/Profile';
 import useWindowSize from '../hooks/useWindowSize';
 
 const Home = ({ info, gifts, imageList }) => {
-  const { width, height } = useWindowSize();
-  const isPortrait = height > width;
+  const { isPortrait, isLg } = useWindowSize();
   return (
     <>
       <div className="w-screen h-screen bg-[url('/images/bg.jpg')] bg-fixed bg-center bg-cover" />
@@ -22,20 +21,27 @@ const Home = ({ info, gifts, imageList }) => {
         <Timeout />
       </div>
       <Profile />
+      <div className="flex justify-center my-5 lg:mb-20">
+        <div className="text-2xl lg:text-4xl text-center p-5 mx-5 bg-slate-700 rounded-xl shadow-lg text-white">
+          &quot;Hledejte však nejprve Boží království a jeho spravedlnost, a to
+          všechno vám bude přidáno.&quot; Matouš 6:33
+        </div>
+      </div>
       <div className="text-center">
         <h1 className="text-4xl underline mb-5">Informace</h1>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap justify-center content-evenly">
+        <div className="flex flex-col items-stretch lg:flex-row lg:flex-wrap justify-center content-evenly">
           {info.map((data, index) => (
             <Info key={index} {...data} />
           ))}
         </div>
-        {isPortrait ? (
-          <div>
+        {isPortrait || !isLg ? (
+          <div className="space-y-5 mt-5">
+            <h1 className="text-4xl underline">Fotky</h1>
             {imageList.map((path, index) => (
               <img
                 id={`carousel-image-${index}`}
                 key={path}
-                className="p-5"
+                className="px-5"
                 alt={`image number ${index + 1}`}
                 src={`/images/random/${path}`}
               />
@@ -68,22 +74,24 @@ export const getStaticProps = async () => {
 
   const info = await getInfo();
 
-  const gifts = (await getGifts()).sort((a, b) => {
+  const gifts = await getGifts();
+
+  const giftsWithImages = (
+    await Promise.all(
+      gifts.map(async ({ url, ...gift }) => {
+        const data = await urlMetadata(url).catch(() => null);
+        return {
+          url,
+          ...data,
+          ...gift,
+        };
+      }),
+    )
+  ).sort((a, b) => {
     if (a.priority !== b.priority)
       return priorityValue[a.priority] - priorityValue[b.priority];
     return a.title.localeCompare(b.title);
   });
-
-  const giftsWithImages = await Promise.all(
-    gifts.map(async ({ url, ...gift }) => {
-      const data = await urlMetadata(url).catch(() => null);
-      return {
-        url,
-        ...data,
-        ...gift,
-      };
-    }),
-  );
 
   const imageList = fs.readdirSync('public/images/random');
 

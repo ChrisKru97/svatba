@@ -4,6 +4,8 @@ const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
     width: 0,
     height: 0,
+    isPortrait: false,
+    isLg: false,
   });
 
   const hasWindow = typeof window !== 'undefined';
@@ -11,9 +13,12 @@ const useWindowSize = () => {
   useEffect(() => {
     if (hasWindow) {
       const handleResize = () => {
+        const isPortrait = window.innerHeight > window.innerWidth;
         setWindowSize({
           width: window.innerWidth,
           height: window.innerHeight,
+          isLg: (isPortrait ? window.innerWidth : window.innerHeight) >= 1024,
+          isPortrait,
         });
       };
 
