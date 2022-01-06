@@ -8,6 +8,7 @@ import Gift from '../components/Gift';
 import ImageList from '../components/ImageList';
 import Profile from '../components/Profile';
 import useWindowSize from '../hooks/useWindowSize';
+import Verse from '../components/Verse';
 
 const Home = ({ info, gifts, imageList }) => {
   const { isPortrait, isLg } = useWindowSize();
@@ -21,12 +22,7 @@ const Home = ({ info, gifts, imageList }) => {
         <Timeout />
       </div>
       <Profile />
-      <div className="flex justify-center my-5 lg:mb-20">
-        <div className="text-2xl lg:text-4xl text-center p-5 mx-5 bg-slate-700 rounded-xl shadow-lg text-white">
-          &quot;Hledejte však nejprve Boží království a jeho spravedlnost, a to
-          všechno vám bude přidáno.&quot; Matouš 6:33
-        </div>
-      </div>
+      <Verse />
       <div className="text-center">
         <h1 className="text-4xl underline mb-5">Informace</h1>
         <div className="flex flex-col items-stretch lg:flex-row lg:flex-wrap justify-center content-evenly">
@@ -82,7 +78,7 @@ export const getStaticProps = async () => {
         const data = await urlMetadata(url).catch(() => null);
         return {
           url,
-          ...data,
+          image: data.image,
           ...gift,
         };
       }),

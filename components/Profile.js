@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import useWindowSize from '../hooks/useWindowSize';
 
 const Profile = () => {
+  const { ref, inView } = useInView({
+    delay: 500,
+    triggerOnce: true,
+    fallbackInView: true,
+  });
   const { width, height, isPortrait, isLg } = useWindowSize();
   const [scrolled, setScrolled] = useState(0);
   const notAnimated = isPortrait || !isLg;
@@ -39,11 +45,16 @@ const Profile = () => {
         }}>
         Christian Krutsche
       </h1>
-      <div className="flex-1 m-5">
+      <div className="flex-1 m-5 rounded-full overflow-hidden">
         <img
+          ref={ref}
+          style={{
+            transition: 'filter 1500ms',
+            filter: inView ? undefined : 'grayScale() blur(5px)',
+          }}
+          className="rounded-full"
           src="/images/together.jpg"
           width={width / 3}
-          className="rounded-full"
           alt="together image"
         />
       </div>

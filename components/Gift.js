@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { onGiftUpdate, updateGift } from '../firebase/firestore-functions';
 
@@ -31,7 +30,7 @@ const Gift = (props) => {
       {image && <img src={image} width={100} alt={`image ${title}`} />}
       {max && reserved < max && (
         <div>
-          <Image
+          <img
             src="/images/plus.svg"
             height={28}
             width={28}
