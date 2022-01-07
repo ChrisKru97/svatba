@@ -1,17 +1,21 @@
 import fs from 'fs';
-import { marked } from 'marked';
 import urlMetadata from 'url-metadata';
 import Timeout from '../components/Timeout';
-import { getGifts, getInfo } from '../firebase/firestore-functions';
 import Info from '../components/Info';
 import Gift from '../components/Gift';
 import ImageList from '../components/ImageList';
 import Profile from '../components/Profile';
 import useWindowSize from '../hooks/useWindowSize';
 import Verse from '../components/Verse';
+import { fetchAndParseData } from '../functions';
+import useGifts from '../hooks/useGifts';
+import useInfo from '../hooks/useInfo';
 
-const Home = ({ info, gifts, imageList }) => {
+const Home = ({ info: initialInfo, gifts: initialGifts, imageList }) => {
   const { isPortrait, isLg } = useWindowSize();
+  const gifts = useGifts(initialGifts);
+  const info = useInfo(initialInfo);
+
   return (
     <>
       <div className="w-screen h-screen bg-[url('/images/bg.jpg')] bg-fixed bg-center bg-cover" />
@@ -49,8 +53,10 @@ const Home = ({ info, gifts, imageList }) => {
         <div className="items-center flex-col flex space-y-5 pb-5 mt-10">
           <h1 className="text-4xl underline">Dary</h1>
           <h2 className="text-l">
-            Rezervujte kliknutím <b>+</b>
-            <br />V případě omylu nás prosím kontaktujte
+            Pro rezervaci prosím kontaktujte&nbsp;
+            <a href="mailto:hi@marianbrchan.com">Mariana</a>,&nbsp;
+            případně&nbsp;
+            <a href="mailto:christian.krutsche@gmail.com">nás</a>.
           </h2>
           {gifts.map((gift, index) => (
             <Gift key={index} {...gift} />
@@ -62,43 +68,22 @@ const Home = ({ info, gifts, imageList }) => {
 };
 
 export const getStaticProps = async () => {
-  const priorityValue = {
-    high: 0,
-    normal: 1,
-    low: 2,
+  const assignImage = async (gift) => {
+    const data = await urlMetadata(gift.url).catch(() => null);
+    if (!data) return gift;
+    return {
+      image: data.image,
+      ...gift,
+    };
   };
 
-  const info = await getInfo();
-
-  const gifts = await getGifts();
-
-  const giftsWithImages = (
-    await Promise.all(
-      gifts.map(async ({ url, ...gift }) => {
-        const data = await urlMetadata(url).catch(() => null);
-        return {
-          url,
-          image: data.image,
-          ...gift,
-        };
-      }),
-    )
-  ).sort((a, b) => {
-    if (a.priority !== b.priority)
-      return priorityValue[a.priority] - priorityValue[b.priority];
-    return a.title.localeCompare(b.title);
-  });
-
-  const imageList = fs.readdirSync('public/images/random');
+  const { info, gifts } = await fetchAndParseData();
 
   return {
     props: {
-      imageList,
-      info: info.map(({ description, ...item }) => ({
-        ...item,
-        description: marked(description),
-      })),
-      gifts: giftsWithImages,
+      info,
+      gifts: await Promise.all(gifts.map(assignImage)),
+      imageList: fs.readdirSync('public/images/random'),
     },
   };
 };
