@@ -17,7 +17,7 @@ const useWindowSize = () => {
         setWindowSize({
           width: window.innerWidth,
           height: window.innerHeight,
-          isLg: (isPortrait ? window.innerWidth : window.innerHeight) >= 1024,
+          isLg: window.innerWidth >= 1024,
           isPortrait,
         });
       };

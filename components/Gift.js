@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { onGiftUpdate, updateGift } from '../firebase/firestore-functions';
+import { onGiftUpdate } from '../firebase/firestore-functions';
 
 const Gift = (props) => {
   const [gift, setGift] = useState(props);
@@ -24,11 +24,11 @@ const Gift = (props) => {
       <h2 className="underline text-blue-600">{title}</h2>
       {max && (
         <span>
-          {reserved} / {max}
+          Rezervováno:&nbsp;{reserved} / {max}
         </span>
       )}
       {image && <img src={image} width={100} alt={`image ${title}`} />}
-      {max && reserved < max && (
+      {/* {max && reserved < max && (
         <div>
           <img
             src="/images/plus.svg"
@@ -42,7 +42,7 @@ const Gift = (props) => {
             }}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
