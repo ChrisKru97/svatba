@@ -1,6 +1,6 @@
 import { useTimer } from 'react-timer-hook';
 
-const expiryTimestamp = +new Date('2022-02-26T00:00:00.000Z');
+const expiryTimestamp = +new Date('2023-07-05T10:30:00.000+01:00');
 
 const Timeout = () => {
   const { seconds, minutes, hours, days } = useTimer({ expiryTimestamp });

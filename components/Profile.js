@@ -43,7 +43,7 @@ const Profile = () => {
             ? undefined
             : `translateY(${translateY}px) translateX(${-translateX}%) scale(${scale})`,
         }}>
-        Christian Krutsche
+        Adam Gaura
       </h1>
       <div className="flex-1 m-5 rounded-full overflow-hidden">
         <img
@@ -53,7 +53,7 @@ const Profile = () => {
             filter: inView ? undefined : 'grayScale() blur(5px)',
           }}
           className="rounded-full"
-          src="/images/together.jpg"
+          src="/images/together.jpeg"
           width={width / 3}
           alt="together image"
         />
@@ -66,7 +66,7 @@ const Profile = () => {
             ? undefined
             : `translateY(${translateY}px) translateX(${translateX}%) scale(${scale})`,
         }}>
-        Karin Siwá
+        Joanna Piętak
       </h1>
     </div>
   );

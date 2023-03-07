@@ -24,12 +24,15 @@ const Info = ({ title, description, iconUrl }) => {
         transition: 'transform 800ms',
         transform: inView && !bounced ? 'scale(1.1)' : undefined,
       }}
-      className="lg:max-w-sm m-5 items-center flex flex-col space-y-3 bg-stone-200 shadow-xl p-5 rounded-xl"
+      className="m-5 items-center flex flex-col space-y-3 bg-stone-200 shadow-xl p-5 rounded-xl" //lg:max-w-sm
       key={title}>
-      <img src={iconUrl} width={50} height={50} alt={`icon ${title}`} />
-      <h3 className="text-lg underline">{title}</h3>
+      {!!iconUrl && (
+        <img src={iconUrl} width={50} height={50} alt={`icon ${title}`} />
+      )}
+      {!!title && <h3 className="text-xl underline">{title}</h3> // text-lg
+      } 
       <div
-        className="text-sm"
+        className="text-lg" //text-sm
         dangerouslySetInnerHTML={{ __html: description }}
       />
     </div>

@@ -4,7 +4,7 @@ import '../styles/globals.css';
 const MyApp = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Bereme se!</title>
+      <title>Bedzie wiesieli!</title>
       <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     </Head>
     <Component {...pageProps} />
