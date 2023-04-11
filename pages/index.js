@@ -28,8 +28,8 @@ const Home = ({ info: initialInfo, imageList }) => {
       <Profile />
       <Verse />
       <div className="text-center">
-        <h1 className="text-4xl underline mb-5">Informacje</h1>
-        <div className="flex flex-col items-stretch lg:flex-row lg:flex-wrap justify-center content-evenly lg:mb-20">
+        {/* <h1 className="text-4xl underline mb-5">Informacje</h1> */}
+        <div className="flex flex-col items-stretch lg:flex-row lg:flex-wrap justify-center content-evenly lg:mb-[100px] p-5">
           {info.map((data, index) => (
             <Info key={index} {...data} />
           ))}

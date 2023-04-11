@@ -50,7 +50,7 @@ const ImageList = ({ list }) => {
         `carousel-image-${index}`,
       ).style;
       mainElStyle.setProperty('z-index', 1);
-      mainElStyle.setProperty('transform', `scale(0.5)`);
+      mainElStyle.setProperty('transform', 'scale(0.5)');
     },
     [indexAt, width],
   );
@@ -66,7 +66,7 @@ const ImageList = ({ list }) => {
   }, [indexAt, onImageClick]);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-screen h-screen overflow-x-hidden flex justify-center items-center">
       {list.map((path, index) => {
         const isPortrait = path.includes('portrait');
         const leftImage = list.length - 1;
