@@ -1,6 +1,6 @@
 const Gift = (props) => {
   // const [gift, setGift] = useState(props);
-  const { max, reserved = 0, title, url, image, imageUrl, id: _ } = props; //gift;
+  const { max, reserved = 0, title, url, image, id: _ } = props; //gift;
 
   // useEffect(() => {
   //   const unsub = onGiftUpdate(id, ({ reserved: nextReserved }) => {
@@ -22,9 +22,7 @@ const Gift = (props) => {
           Rezervováno:&nbsp;{reserved} / {max}
         </span>
       )}
-      {(image || imageUrl) && (
-        <img src={image || imageUrl} width={100} alt={`image ${title}`} />
-      )}
+      {image && <img src={image} width={100} alt={`image ${title}`} />}
       {/* {max && reserved < max && (
         <div>
           <img

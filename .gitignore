@@ -31,11 +31,6 @@ yarn-error.log*
 
 .firebase
 
-public/images/*.jpg
-public/images/*.jpeg
-public/images/*.png
-public/images/*.JPG
-public/images/random/*.JPG
-public/images/random/*.jpeg
+public/images/**/*.jpg
 
 firebase/clientApp.js

@@ -2,26 +2,26 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && next-export-optimize-images",
     "start": "next start",
     "lint": "eslint ./ --fix"
   },
   "dependencies": {
-    "firebase": "^9.17.1",
+    "firebase": "^9.22.0",
     "next": "^13.2.1",
     "react-intersection-observer": "^9.4.3",
-    "react-timer-hook": "^3.0.5"
+    "react-timer-hook": "^3.0.6"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.35.0",
-    "eslint-config-next": "^13.2.1",
-    "eslint-config-prettier": "^8.6.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.41.0",
+    "eslint-config-next": "^13.4.3",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "marked": "^4.2.12",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.7",
-    "url-metadata": "^2.5.0"
+    "marked": "^5.0.2",
+    "next-export-optimize-images": "^2.1.0",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
   }
 }

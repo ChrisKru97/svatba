@@ -1,7 +1,12 @@
 import { useInView } from 'react-intersection-observer';
 import useWindowSize from '../hooks/useWindowSize';
 
-const Verse = () => {
+const text = Object.freeze({
+  cs: '"Hledejte nejprve Boží království a jeho spravedlnost, a toto vše vám bude přidáno." Matouš 6:33',
+  pl: '"Ale szukajcie najpierw Królestwa Bożego i sprawiedliwości jego, a wszystko inne będzie wam dodane." Mateusz 6:33',
+});
+
+const Verse = ({ language = 'cs' }) => {
   const { isLg, isPortrait } = useWindowSize();
   const skip = isPortrait || !isLg;
   const { ref, inView } = useInView({
@@ -21,8 +26,7 @@ const Verse = () => {
           opacity: skip || inView ? 1 : 0,
           transform: skip || inView ? undefined : 'translateX(400px)',
         }}>
-        &quot;Ale szukajcie najpierw Królestwa Bożego i sprawiedliwości jego, a
-        wszystko inne będzie wam dodane.&quot; Mateusz 6:33
+        {text[language]}
       </div>
     </div>
   );

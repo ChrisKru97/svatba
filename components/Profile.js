@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Image from 'next/image';
 import useWindowSize from '../hooks/useWindowSize';
+import image from '../public/images/together.jpg';
 
 const Profile = () => {
   const { ref, inView } = useInView({
@@ -43,17 +45,17 @@ const Profile = () => {
             ? undefined
             : `translateY(${translateY}px) translateX(${-translateX}%) scale(${scale})`,
         }}>
-        Adam Gaura
+        Joanna Piętak
       </h1>
-      <div className="flex-1 m-5 rounded-full overflow-hidden">
-        <img
-          ref={ref}
+      <div ref={ref} className="flex-1 m-5 rounded-full overflow-hidden">
+        <Image
+          sizes="1920px, 1080px, 640px"
           style={{
             transition: 'filter 1500ms',
             filter: inView ? undefined : 'grayScale() blur(5px)',
           }}
           className="rounded-full"
-          src="/images/together.jpeg"
+          src={image}
           width={width / 3}
           alt="together image"
         />
@@ -66,7 +68,7 @@ const Profile = () => {
             ? undefined
             : `translateY(${translateY}px) translateX(${translateX}%) scale(${scale})`,
         }}>
-        Joanna Piętak
+        Adam Gaura
       </h1>
     </div>
   );

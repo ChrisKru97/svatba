@@ -1,18 +1,27 @@
 import { useCallback, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import useWindowSize from '../hooks/useWindowSize';
+import p1 from '../public/images/random/1.jpg';
+import p2 from '../public/images/random/2.jpg';
+import p3 from '../public/images/random/3.jpg';
+import p4 from '../public/images/random/4.jpg';
+import p5 from '../public/images/random/5.jpg';
+import p6 from '../public/images/random/6.jpg';
+import p7 from '../public/images/random/7.jpg';
+import p8 from '../public/images/random/8.jpg';
+import p9 from '../public/images/random/9.jpg';
 
-const ImageList = ({ list }) => {
+const portraitImages = [1, 3, 5];
+
+const indexAt = (index) => {
+  const imageCount = 9;
+  if (index < 0) return (imageCount + index) % imageCount;
+  return index % imageCount;
+};
+
+const ImageList = () => {
   const { width } = useWindowSize();
   const selectedImage = useRef(0);
-
-  const indexAt = useCallback(
-    (index) => {
-      const imageCount = list.length;
-      if (index < 0) return (imageCount + index) % imageCount;
-      return index % imageCount;
-    },
-    [list],
-  );
 
   const onImageClick = useCallback(
     (index) => {
@@ -67,17 +76,18 @@ const ImageList = ({ list }) => {
 
   return (
     <div className="w-screen h-screen overflow-x-hidden flex justify-center items-center">
-      {list.map((path, index) => {
-        const isPortrait = path.includes('portrait');
-        const leftImage = list.length - 1;
+      {[p1, p2, p3, p4, p5, p6, p7, p8, p9].map((image, index, { length }) => {
+        const isPortrait = portraitImages.includes(index);
+        const leftImage = length - 1;
         const sideImages = [leftImage, 1];
         const shownImages = [...sideImages, 0];
         return (
-          <img
+          <Image
+            sizes="1920px, 1080px, 640px"
             id={`carousel-image-${index}`}
-            key={path}
+            key={index}
             alt={`image number ${index + 1}`}
-            src={`/images/random/${path}`}
+            src={image}
             className="absolute cursor-pointer"
             onClick={() => onImageClick(index)}
             style={{

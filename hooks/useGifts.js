@@ -10,14 +10,7 @@ const useGifts = (initialValue) => {
     if (fetchedFromServer.current) return;
     getGifts().then((nextGifts) => {
       fetchedFromServer.current = true;
-      setGifts(
-        nextGifts
-          .map((gift) => ({
-            image: gifts.find((item) => item.id === gift.id)?.image,
-            ...gift,
-          }))
-          .sort(sortGifts),
-      );
+      setGifts(nextGifts.sort(sortGifts));
     });
   }, [gifts]);
 

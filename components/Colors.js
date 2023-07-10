@@ -9,7 +9,7 @@ const colorsArr = [
 
 const Colors = () => (
   <>
-    <div className="flex justify-center px-5 mt-5 mb-10 lg:mt-[100px]">
+    <div className="flex justify-center px-5 mt-5 mb-10">
       <div className="text-2xl lg:text-4xl lg:w-[50vw] text-center p-5 bg-verse rounded-xl shadow-lg text-white">
         Będzie nam miło, jeśli zechcecie dopasować kolory Waszych ubrań do
         kolorów w tej palecie.
